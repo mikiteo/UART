@@ -64,33 +64,21 @@ if {[llength $file_obj]} { set_property -name "file_type" -value "Memory Initial
 set_property -name "dataflow_viewer_settings" -value "min_width=16" -objects $obj
 set_property -name "top" -value "$_inst_top_name_" -objects $obj
 
-# Configure clk_wiz_0 IP and set 2 clocks: 60MHz and 100MHz
+# Configure clk_wiz_0 IP: 100MHz
 create_ip -name clk_wiz -vendor xilinx.com -library ip -version 6.0 -module_name clk_wiz_0
 set_property -dict [list \
   CONFIG.CLKIN1_JITTER_PS {80.0} \
   CONFIG.CLKOUT1_DRIVES {BUFG} \
-  CONFIG.CLKOUT1_JITTER {261.690} \
-  CONFIG.CLKOUT1_PHASE_ERROR {249.865} \
-  CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {60.000} \
-  CONFIG.CLKOUT2_DRIVES {BUFG} \
-  CONFIG.CLKOUT2_JITTER {237.312} \
-  CONFIG.CLKOUT2_PHASE_ERROR {249.865} \
-  CONFIG.CLKOUT2_USED {true} \
-  CONFIG.CLKOUT3_DRIVES {BUFG} \
-  CONFIG.CLKOUT4_DRIVES {BUFG} \
-  CONFIG.CLKOUT5_DRIVES {BUFG} \
-  CONFIG.CLKOUT6_DRIVES {BUFG} \
-  CONFIG.CLKOUT7_DRIVES {BUFG} \
+  CONFIG.CLKOUT1_JITTER {122.345} \
+  CONFIG.CLKOUT1_PHASE_ERROR {95.123} \
+  CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {100.000} \
   CONFIG.JITTER_SEL {No_Jitter} \
-  CONFIG.MMCM_CLKFBOUT_MULT_F {36.000} \
+  CONFIG.MMCM_CLKFBOUT_MULT_F {40.000} \
   CONFIG.MMCM_CLKIN1_PERIOD {8.000} \
-  CONFIG.MMCM_CLKIN2_PERIOD {10.000} \
-  CONFIG.MMCM_CLKOUT0_DIVIDE_F {15.000} \
-  CONFIG.MMCM_CLKOUT0_DUTY_CYCLE {0.5} \
-  CONFIG.MMCM_CLKOUT1_DIVIDE {9} \
-  CONFIG.MMCM_CLKOUT1_DUTY_CYCLE {0.5} \
   CONFIG.MMCM_DIVCLK_DIVIDE {5} \
-  CONFIG.NUM_OUT_CLKS {2} \
+  CONFIG.MMCM_CLKOUT0_DIVIDE_F {8.000} \
+  CONFIG.MMCM_CLKOUT0_DUTY_CYCLE {0.5} \
+  CONFIG.NUM_OUT_CLKS {1} \
   CONFIG.PRIM_IN_FREQ {125.000} \
   CONFIG.SECONDARY_SOURCE {Single_ended_clock_capable_pin} \
   CONFIG.USE_LOCKED {true} \

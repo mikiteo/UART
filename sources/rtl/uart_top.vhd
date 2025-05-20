@@ -6,28 +6,23 @@ entity uart_top is
     generic(
         SYNTHESIS   : boolean                       := true;
         BAUD_RATE   : integer                       := 115200;
-        CLK_FREQ    : integer                       := 100_000_000;
-        RAM_WIDTH   : integer                       := 8;
-        RAM_DEPTH   : integer                       := 256
+        CLK_FREQ    : integer                       := 100_000_000
     );
     port (
         clk_in          : in  std_logic;
         sw              : in  std_logic_vector(1 downto 0);
         
-        btn             : in  std_logic_vector(1 downto 0);
-        ck_io2          : out std_logic;
+        -- UART RX
         ck_io1          : in  std_logic;
-        ck_io0          : out std_logic;
-        led             : out std_logic_vector(3 downto 0);
+        ce_ram_b        : out std_logic;   
+        we_ram_b        : out std_logic;
+        addr_ram_b      : out std_logic_vector(31 downto 0);
+        data_in_ram_b   : out std_logic_vector(7 downto 0);
 
-        ck_io6          : out std_logic;
-        ck_io7          : out std_logic;
-        ck_io8          : out std_logic;
-        ck_io9          : out std_logic;
-        ck_io10         : out std_logic;
-        ck_io11         : out std_logic;
-        ck_io12         : out std_logic;
-        ck_io13         : out std_logic
+        -- UART TX
+        ck_io0          : out std_logic;
+        btn             : in  std_logic_vector(1 downto 0);
+        led             : out std_logic_vector(3 downto 0)
     );
 end entity;
 
@@ -40,33 +35,15 @@ architecture rtl of uart_top is
     
     signal data_check           : std_logic;
     signal process_done         : std_logic;
-    
-    signal btn_prev             : std_logic;
-    signal bounce_cnt           : unsigned(7 downto 0);
+
     signal bounce_done_btn0     : std_logic;
     signal bounce_done_btn1     : std_logic;
     signal selected_cmd         : std_logic_vector(1 downto 0);
 
     signal tx_byte              : std_logic_vector(7 downto 0);
-    
     signal rx_ready             : std_logic;
     signal tx_start             : std_logic;
     signal tx_busy              : std_logic;
-    signal tx_bin               : std_logic;
-    
-    signal rx_test              : std_logic;
-
-    signal data_in_ram_a        : std_logic_vector(7 downto 0);
-    signal data_out_ram_a       : std_logic_vector(7 downto 0);
-    signal ce_ram_a             : std_logic;
-    signal we_ram_a             : std_logic;
-    signal addr_ram_a           : std_logic_vector(7 downto 0);
-
-    signal data_in_ram_b        : std_logic_vector(7 downto 0);
-    signal data_out_ram_b       : std_logic_vector(7 downto 0);
-    signal ce_ram_b             : std_logic;
-    signal we_ram_b             : std_logic;
-    signal addr_ram_b           : std_logic_vector(7 downto 0);
     
     type state_type is (idle, s_0);
     signal state       : state_type := idle;
@@ -87,16 +64,6 @@ begin
     reset_in <= sw(0);
     ck_io0   <= tx;
     rx       <= ck_io1;
-    ck_io2   <= '1';
-
-    ck_io6   <= data_out_ram_b(0);
-    ck_io7   <= data_out_ram_b(1);
-    ck_io8   <= data_out_ram_b(2);
-    ck_io9   <= data_out_ram_b(3);
-    ck_io10  <= data_out_ram_b(4);
-    ck_io11  <= data_out_ram_b(5);
-    ck_io12  <= data_out_ram_b(6);
-    ck_io13  <= data_out_ram_b(7);
     
     --Send packet
     process(clk)
@@ -189,35 +156,16 @@ begin
             reset         => reset_in,
             rx            => rx,
             ready         => rx_ready,
-            dout          => data_in_ram_a
+            dout          => data_in_ram_b
         );
 
     rx_bram_ctrl : entity work.dma_rx_bram
         port map (
             clk         => clk,
-            ce          => ce_ram_a,
-            we          => we_ram_a,
-            addr        => addr_ram_a,
+            ce          => ce_ram_b,
+            we          => we_ram_b,
+            addr        => addr_ram_b,
             ready       => rx_ready
-        );
-
-    bram_inst : entity work.dp_ram
-        generic map (
-            RAM_WIDTH => RAM_WIDTH,
-            RAM_DEPTH => RAM_DEPTH
-        )
-        port map (
-            douta => data_out_ram_a,
-            doutb => data_out_ram_b,
-            addra => addr_ram_a,
-            addrb => addr_ram_b,
-            dina  => data_in_ram_a,
-            dinb  => data_in_ram_b,
-            clka  => clk,
-            wea   => we_ram_a,
-            web   => we_ram_b,
-            ena   => ce_ram_a,
-            enb   => ce_ram_b
         );
 
     tx_command_create : entity work.tx_command_create

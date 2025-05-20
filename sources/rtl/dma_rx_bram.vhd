@@ -7,7 +7,7 @@ entity dma_rx_bram is
         clk         : in   std_logic;
         ce          : out  std_logic;
         we          : out  std_logic;
-        addr        : out  std_logic_vector(7 downto 0);
+        addr        : out  std_logic_vector(31 downto 0);
         ready       : in   std_logic
     );
 end entity dma_rx_bram;
@@ -16,7 +16,7 @@ architecture rtl of dma_rx_bram is
 
     type state_type is (idle, next_addr);
     signal state : state_type := idle;
-    signal addr_counter : unsigned(7 downto 0) := (others => '0');
+    signal addr_counter : unsigned(31 downto 0) := (others => '0');
 
 begin
 
@@ -35,11 +35,7 @@ begin
                     end if;
 
                 when next_addr =>
-                    if addr_counter < to_unsigned(249, 8) then
-                        addr_counter <= addr_counter + 1;
-                    else
-                        addr_counter <= (others => '0');
-                    end if;
+                    addr_counter <= addr_counter + 1;
                     ce <= '0';
                     we <= '0';
                     state <= idle;
