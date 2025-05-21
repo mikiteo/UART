@@ -89,18 +89,18 @@ set_property -dict {PACKAGE_PIN D20 IOSTANDARD LVCMOS33} [get_ports {btn[1]}]
 # ChipKit Outer Digital Header
 set_property -dict {PACKAGE_PIN T14 IOSTANDARD LVCMOS33} [get_ports ck_io0]
 set_property -dict {PACKAGE_PIN U12 IOSTANDARD LVCMOS33} [get_ports ck_io1]
-set_property -dict {PACKAGE_PIN U13 IOSTANDARD LVCMOS33} [get_ports ck_io2]
-#set_property -dict { PACKAGE_PIN V13   IOSTANDARD LVCMOS33 } [get_ports { ck_io3  }]; #IO_L3N_T0_DQS_34        Sch=CK_IO3
-#set_property -dict { PACKAGE_PIN V15   IOSTANDARD LVCMOS33 } [get_ports { ck_io4  }]; #IO_L10P_T1_34           Sch=CK_IO4
-#set_property -dict { PACKAGE_PIN T15   IOSTANDARD LVCMOS33 } [get_ports { ck_io5  }]; #IO_L5N_T0_34            Sch=CK_IO5
-set_property -dict {PACKAGE_PIN R16 IOSTANDARD LVCMOS33} [get_ports ck_io6]
-set_property -dict {PACKAGE_PIN U17 IOSTANDARD LVCMOS33} [get_ports ck_io7]
-set_property -dict {PACKAGE_PIN V17 IOSTANDARD LVCMOS33} [get_ports ck_io8]
-set_property -dict {PACKAGE_PIN V18 IOSTANDARD LVCMOS33} [get_ports ck_io9]
-set_property -dict {PACKAGE_PIN T16 IOSTANDARD LVCMOS33} [get_ports ck_io10]
-set_property -dict {PACKAGE_PIN R17 IOSTANDARD LVCMOS33} [get_ports ck_io11]
-set_property -dict {PACKAGE_PIN P18 IOSTANDARD LVCMOS33} [get_ports ck_io12]
-set_property -dict {PACKAGE_PIN N17 IOSTANDARD LVCMOS33} [get_ports ck_io13]
+# set_property -dict {PACKAGE_PIN U13 IOSTANDARD LVCMOS33} [get_ports ck_io2]
+# set_property -dict { PACKAGE_PIN V13   IOSTANDARD LVCMOS33 } [get_ports { ck_io3  }]; #IO_L3N_T0_DQS_34        Sch=CK_IO3
+# set_property -dict { PACKAGE_PIN V15   IOSTANDARD LVCMOS33 } [get_ports { ck_io4  }]; #IO_L10P_T1_34           Sch=CK_IO4
+# set_property -dict { PACKAGE_PIN T15   IOSTANDARD LVCMOS33 } [get_ports { ck_io5  }]; #IO_L5N_T0_34            Sch=CK_IO5
+# set_property -dict {PACKAGE_PIN R16 IOSTANDARD LVCMOS33} [get_ports ck_io6]
+# set_property -dict {PACKAGE_PIN U17 IOSTANDARD LVCMOS33} [get_ports ck_io7]
+# set_property -dict {PACKAGE_PIN V17 IOSTANDARD LVCMOS33} [get_ports ck_io8]
+# set_property -dict {PACKAGE_PIN V18 IOSTANDARD LVCMOS33} [get_ports ck_io9]
+# set_property -dict {PACKAGE_PIN T16 IOSTANDARD LVCMOS33} [get_ports ck_io10]
+# set_property -dict {PACKAGE_PIN R17 IOSTANDARD LVCMOS33} [get_ports ck_io11]
+# set_property -dict {PACKAGE_PIN P18 IOSTANDARD LVCMOS33} [get_ports ck_io12]
+# set_property -dict {PACKAGE_PIN N17 IOSTANDARD LVCMOS33} [get_ports ck_io13]
 
 ## ChipKit Inner Digital Header
 ## Not Connected on Z7-10 Variant

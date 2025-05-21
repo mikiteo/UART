@@ -144,4 +144,18 @@ if {[llength $files]} {
 set_property -name "top" -value "$_inst_top_name_" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
 
+
+
+
+# Restore Block Design from script
+source "$repo_dir/scripts/diploma_top.tcl"
+
+# And create Wrapper for being able to implement it
+make_wrapper -files [get_files $proj_dir/$_xil_proj_name_.srcs/sources_1/bd/diploma_top/diploma_top.bd] -top
+add_files -norecurse $proj_dir/$_xil_proj_name_.gen/sources_1/bd/diploma_top/hdl/diploma_top_wrapper.v
+update_compile_order -fileset sources_1
+
+# Set Wrapper as top project file
+set_property top diploma_top_wrapper [current_fileset]
+
 exit
